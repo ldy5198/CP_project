@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <conio.h>
 
 #define MAX_CARDS 20 // 카드 개수
 #define MAX_WEIGHT 2000 // 초기 무게
@@ -66,6 +67,31 @@ void selectCard(Player* player, CardFunction cards[], const char* cardDescriptio
     }
 }
 
+// 게임 규칙 설명 함수
+void showRules() {
+    printf("\n게임 규칙:\n");
+    printf("1. 플레이어는 2000kg의 짐을 가진 채 시작합니다.\n");
+    printf("2. 탑의 각 층마다 무게 제한이 있으며, 제한을 초과하면 게임이 종료됩니다.\n");
+    printf("3. 카드 선택을 통해 무게를 조절하거나 층을 건너뛸 수 있습니다.\n");
+    printf("4. 20층에 도달하면 게임에 승리합니다.\n\n");
+    printf("아무 키나 눌러 메인 화면으로 돌아가세요...\n");
+    _getch(); // 키 입력 대기
+}
+
+// 게임 메인 화면 함수
+void showMainMenu() {
+    printf("\n\n\n");
+    printf("=====================================\n");
+    printf("         탑 오르기 게임\n");
+    printf("=====================================\n");
+    printf("    1. 게임 시작\n");
+    printf("    2. 게임 규칙 설명\n");
+    printf("    3. 종료\n");
+    printf("=====================================\n");
+    printf("선택하세요: ");
+}
+
+
 // 게임 진행
 void playGame(Player* player) {
     CardFunction cardDeck[MAX_CARDS] = {
@@ -108,11 +134,47 @@ void playGame(Player* player) {
     printf("축하합니다! 탑의 정점에 도달했습니다!\n");
 }
 
+//int main() {
+//    srand(time(NULL));
+//
+//    Player player = { MAX_WEIGHT, 1, 0 }; // skipped 초기화 추가
+//    playGame(&player);
+//
+//    return 0;
+//}
+
+// 메인 함수
 int main() {
     srand(time(NULL));
 
-    Player player = { MAX_WEIGHT, 1, 0 }; // skipped 초기화 추가
-    playGame(&player);
+    int choice;
+    Player player;
+
+    while (1) {
+        system("cls"); // 콘솔 화면 지우기 (Windows)
+        showMainMenu();
+        scanf_s("%d", &choice);
+
+        if (choice == 1) {
+            player.currentWeight = MAX_WEIGHT;
+            player.currentFloor = 1;
+            player.skipped = 0;
+            playGame(&player);
+            printf("아무 키나 눌러 메인 화면으로 돌아가세요...\n");
+            _getch(); // 게임 종료 후 메인 화면으로 돌아가기 위해 대기
+        }
+        else if (choice == 2) {
+            showRules();
+        }
+        else if (choice == 3) {
+            printf("게임을 종료합니다.\n");
+            break;
+        }
+        else {
+            printf("잘못된 선택입니다. 다시 입력하세요.\n");
+            _getch();
+        }
+    }
 
     return 0;
 }
