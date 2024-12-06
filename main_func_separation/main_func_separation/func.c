@@ -75,14 +75,17 @@ void randomWeight(Player* player) {
 void randomMultiple(Player* player) {
     int effect = rand() % 2;
     if (effect == 0) {
-        player->currentWeight *= 2;
-        printf("무게가 2배 증가했습니다! 현재 무게: %dkg\n", player->currentWeight);
+        player->weightChange = player->currentWeight - player->currentWeight * 2;
+        player->currentWeight = player->currentWeight *= 2; //무게 두배 증가
     }
     else {
-        player->currentWeight = (player->currentWeight + 1) / 2;
-        printf("무게가 절반 감소했습니다! 현재 무게: %dkg\n", player->currentWeight);
+        player->weightChange = player->currentWeight - (player->currentWeight / 2);
+        player->currentWeight = (player->currentWeight + 1) / 2; //무게 절반 감소
+
     }
+    printf("랜덤으로 무게가 2배로 나눠지거나 곱해집니다! 현재 무게: %dkg\n", player->currentWeight);
 }
+
 
 void showRules() {
     printf("\n게임 규칙:\n");
