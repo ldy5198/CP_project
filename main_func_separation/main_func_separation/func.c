@@ -11,7 +11,7 @@ typedef struct {
     int weightChange;
     int previousEffectFloor;
 } Player;
-
+    
 // 함수 포인터 정의
 typedef void (*CardFunction)(Player*);
 

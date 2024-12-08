@@ -83,6 +83,8 @@ int main() {
         showMainMenu();
         scanf_s("%d", &choice);
 
+        while (getchar() != '\n');
+
         if (choice == 1) {
             player.currentWeight = MAX_WEIGHT;
             player.currentFloor = 1;
@@ -93,7 +95,7 @@ int main() {
 
             playGame(&player);
             printf("아무 키나 눌러 메인 화면으로 돌아가세요...\n");
-            (void)_getch(); // 반환값 무시
+            (void)getchar(); // 반환값 무시
         }
         else if (choice == 2) {
             showRules();
@@ -104,7 +106,7 @@ int main() {
         }
         else {
             printf("잘못된 선택입니다. 다시 입력하세요.\n");
-            (void)_getch(); // 반환값 무시
+            (void)getchar(); // 반환값 무시
         }
     }
 
