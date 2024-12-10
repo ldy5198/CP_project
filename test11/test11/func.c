@@ -11,7 +11,7 @@ typedef struct {
     int weightChange;
     int previousEffectFloor;
 } Player;
-    
+
 // 함수 포인터 정의
 typedef void (*CardFunction)(Player*);
 
@@ -19,7 +19,7 @@ typedef void (*CardFunction)(Player*);
 void decreaseWeight(Player* player) {
     player->weightChange = ((rand() % 151) + 200);
     player->currentWeight -= (player->weightChange);
-    if (player->currentWeight < 0) {
+    if (player->currentWeight <= 0) {
         player->currentWeight = 0;
     }
     printf("무게가 %dkg 감소했습니다! 현재 무게: %dkg\n", player->weightChange, player->currentWeight);
@@ -97,6 +97,8 @@ void showRules() {
     (void)getchar();
 }
 
+
+// 카드 선택
 void selectCard(Player* player, CardFunction cards[], const char* cardDescriptions[]) {
     int cardChoice;
     printf("카드를 선택하세요: 1, 2 또는 3\n");

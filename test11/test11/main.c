@@ -5,7 +5,7 @@
 #include "func.h"
 
 #define MAX_WEIGHT 2000
-#define MAX_FLOORS 10
+#define MAX_FLOORS 20
 
 const char* cardNames[] = {
     "무게 감소",
@@ -40,7 +40,7 @@ void playGame(Player* player) {
         randomMultiple
     };
 
-    while (player->currentFloor <= MAX_FLOORS) {
+    while (player->currentFloor <= MAX_FLOORS && player->currentWeight > 0) {
         int weightLimit = MAX_WEIGHT - ((player->currentFloor - 1) * 100);
 
         if (player->currentWeight > weightLimit) {
@@ -55,9 +55,20 @@ void playGame(Player* player) {
         const char* selectedDescriptions[3];
         for (int i = 0; i < 3; i++) {
             int cardIndex = rand() % 7;
+
             selectedCards[i] = cardDeck[cardIndex];
             selectedDescriptions[i] = cardNames[cardIndex];
+
+            if (i == 1 && selectedCards[0] == selectedCards[1])
+            {
+                i--;
+            }
+            if (i == 2 && (selectedCards[0] == selectedCards[2] || selectedCards[1] == selectedCards[2]))
+            {
+                i--;
+            }
         }
+        printf("사용 가능한 카드: \n");
 
         selectCard(player, selectedCards, selectedDescriptions);
 
